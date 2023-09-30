@@ -82,5 +82,4 @@ def admin_login(username, password):
 
 def logout(): #here to satisfy the 'planned controllers'
     logout_user()
-
     return None
