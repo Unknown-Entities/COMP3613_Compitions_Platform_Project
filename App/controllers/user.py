@@ -1,4 +1,5 @@
-from App.models import User
+from App.models import user
+#from App.models import Student, Admin 
 from App.database import db
 
 def create_user(username, password):
@@ -58,6 +59,14 @@ def create_admin(username, password): #creates student object
     
     except:
         return None
+
+def fetchProfile(profileId):
+    profile = User.query.get(profileId)
+
+    if profile:
+        return profile.toJSON()
+
+    return f'{profileId} profile not found'
 
 #TODO: write helper function
 
