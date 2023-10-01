@@ -32,21 +32,21 @@ def create_user_endpoint():
     return jsonify({'message': f"user {data['username']} created"})
 
 @user_views.route('/users', methods=['POST'])
-def create_user_action():
+def create_student_action():
     data = request.form
     flash(f"User {data['username']} created!")
-    create_user(data['username'], data['password'])
+    create_student(data['username'], data['password'])
     return redirect(url_for('user_views.get_user_page'))
 
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
 
-# @user_views.route('/admin', methods=['POST'])
-# def create_admin_action():
-#     data = request.json
-#     result = create_admin(username=data['username'], password=data['password'])
-#     if result:
-#         return jsonify({"message": f"Admin created with id {result.id}"}), 201
-#     return jsonify({"error": f"Username {data['username']} already exists "}), 500
+@user_views.route('/admin', methods=['POST'])
+def create_admin_action():
+    data = request.json
+    result = create_admin(username=data['username'], password=data['password'])
+    if result:
+        return jsonify({"message": f"Admin created"}), 201
+    return jsonify({"error"}), 500
 
