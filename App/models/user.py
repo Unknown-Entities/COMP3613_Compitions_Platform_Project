@@ -3,8 +3,10 @@ from flask_login import UserMixin
 from App.database import db
 
 class User(db.Model, UserMixin):
+    __abstract__ = True #Cannot be instantiated
     id = db.Column(db.Integer, primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
+    user_type = db.Column(db.String, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
     def __init__(self, username, password):
@@ -25,3 +27,5 @@ class User(db.Model, UserMixin):
         """Check hashed password."""
         return check_password_hash(self.password, password)
 
+    def __repr__(self):
+        return f'<User {self.id} {self.username}'
