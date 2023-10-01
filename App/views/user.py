@@ -6,6 +6,7 @@ from.index import index_views
 
 from App.controllers import (
     create_user,
+    # create admin,
     jwt_authenticate, 
     get_all_users,
     get_all_users_json,
@@ -40,3 +41,12 @@ def create_user_action():
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
+
+# @user_views.route('/admin', methods=['POST'])
+# def create_admin_action():
+#     data = request.json
+#     result = create_admin(username=data['username'], password=data['password'])
+#     if result:
+#         return jsonify({"message": f"Admin created with id {result.id}"}), 201
+#     return jsonify({"error": f"Username {data['username']} already exists "}), 500
+
