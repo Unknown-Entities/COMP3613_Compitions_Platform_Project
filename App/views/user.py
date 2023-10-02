@@ -44,7 +44,7 @@ def create_student_action():
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
 
-@user_views.route('/admin', methods=['POST'])
+@user_views.route('/users', methods=['POST'])
 def create_admin_action():
     data = request.json
     result = create_admin(username=data['username'], password=data['password'])
@@ -52,3 +52,9 @@ def create_admin_action():
         return jsonify({"message": f"Admin created"}), 201
     return jsonify({"error"}), 500
 
+@user_views.route('/users', methods=['GET'])
+def fetchProfile_action():
+    profile = fetchProfile(profileId=data['profileId'])
+    if profile:
+        return profile.toJSON()
+    return f'{profileId} profile not found'
