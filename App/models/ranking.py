@@ -1,4 +1,5 @@
-from App.database import db 
+from App.database import db
+from .notification import Notification
 
 class Ranking(db.Model):
     rankingID = db.Column(db.Integer, primary_key=True)
