@@ -6,6 +6,9 @@ from.index import index_views
 
 from App.controllers import (
     create_user,
+    create_student,
+    fetchProfile,
+    create_admin,
     jwt_authenticate, 
     get_all_users,
     get_all_users_json,
@@ -31,12 +34,27 @@ def create_user_endpoint():
     return jsonify({'message': f"user {data['username']} created"})
 
 @user_views.route('/users', methods=['POST'])
-def create_user_action():
+def create_student_action():
     data = request.form
     flash(f"User {data['username']} created!")
-    create_user(data['username'], data['password'])
+    create_student(data['username'], data['password'])
     return redirect(url_for('user_views.get_user_page'))
 
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
+
+@user_views.route('/users', methods=['POST'])
+def create_admin_action():
+    data = request.json
+    result = create_admin(username=data['username'], password=data['password'])
+    if result:
+        return jsonify({"message": f"Admin created"}), 201
+    return jsonify({"error"}), 500
+
+@user_views.route('/users', methods=['GET'])
+def fetchProfile_action():
+    profile = fetchProfile(profileId=data['profileId'])
+    if profile:
+        return profile.toJSON()
+    return f'{profileId} profile not found'

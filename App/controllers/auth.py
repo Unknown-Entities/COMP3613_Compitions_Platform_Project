@@ -42,45 +42,44 @@ def setup_jwt(app):
 
     return jwt
 
-    """
-    Above code probably required, more testing is required;below is what I think
-    is the correct implementation following the above format. Granted this is being
-    written without the model code written.
-    """
+"""
+Above code probably required, more testing is required;below is what I think
+is the correct implementation following the above format. Granted this is being
+written without the model code written.
+"""
 
-    #authentication wraps
-    def student_required(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            if not current_user.is_authenticated or not isinstance(current_user, Student):
-                return "Unauthorized", 401
-            return func(*args, **kwargs)
-        return wrapper
+#authentication wraps
+def student_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_authenticated or not isinstance(current_user, Student):
+            return "Unauthorized", 401
+        return func(*args, **kwargs)
+    return wrapper
 
-    def admin_required(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            if not current_user.is_authenticated or not isinstance(current_user, Admin):
-                return "Unauthorized", 401
-            return func(*args, **kwargs)
-        return wrapper
+def admin_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not current_user.is_authenticated or not isinstance(current_user, Admin):
+            return "Unauthorized", 401
+        return func(*args, **kwargs)
+    return wrapper
 
-    #login/out handling
-    def student_login(username, password):
-        student = Student.query.filter_by(username=username).first()
-        if student and student.check_password(password):
-            login_user(student)
-            return student
-        return None
+#login/out handling
+def student_login(username, password):
+    student = Student.query.filter_by(username=username).first()
+    if student and student.check_password(password):
+        login_user(student)
+        return student
+    return None
 
-    def admin_login(username, password):
-        admin = Admin.query.filter_by(username=username).first()
-        if admin and admin.check_password(password):
-            login_user(admin)
-            return admin
-        return None
+def admin_login(username, password):
+    admin = Admin.query.filter_by(username=username).first()
+    if admin and admin.check_password(password):
+        login_user(admin)
+        return admin
+    return None
 
-    def logout(): #here to satisfy the 'planned controllers'
-        logout_user()
-
-        return None
+def logout(): #here to satisfy the 'planned controllers'
+    logout_user()
+    return None
