@@ -3,7 +3,7 @@ from App.database import db
 
 class Student(User):
     __tablename__ = 'student'
-    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    #id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     profile = db.relationship('Profile', backref=db.backref('student', lazy='joined'))
     competition = db.relationship('Competition', backref=db.backref('competitor', lazy='joined'))
 
