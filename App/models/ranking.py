@@ -28,5 +28,3 @@ class Ranking(db.Model):
             'rank': self.rank,
             'university': self.university
         }
-
-    #TODO: notify student function

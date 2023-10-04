@@ -1,8 +1,9 @@
 from .user import User
 from App.database import db 
 
-class Student(db.Model):
+class Student(User):
     __tablename__ = 'student'
+    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     profile = db.relationship('Profile', backref=db.backref('student', lazy='joined'))
     competition = db.relationship('Competition', backref=db.backref('competitor', lazy='joined'))
 
@@ -20,5 +21,3 @@ class Student(db.Model):
             'username': self.username,
             'type': 'student'
         }
-    
-    #TODO: addfunctions

@@ -9,6 +9,13 @@ class Competition(db.Model):
     maxEntrants = db.Column(db.Integer, nullable=False)
     rankings = db.relationship('Ranking', backref=db.backref('competition', lazy='joined'))
 
+def __init__(self, compName, prize, region, maxEntrants):
+    self.compName = compName
+    self.prize = prize
+    self.region = region
+    self.maxEntrants = maxEntrants
+
+
 def __repr__(self):
     return f'<Competition {self.competitionID} - {self.compName}>'
 
