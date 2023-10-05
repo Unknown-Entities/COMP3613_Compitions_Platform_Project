@@ -4,7 +4,7 @@ from .notification import Notification
 class Ranking(db.Model):
     rankingID = db.Column(db.Integer, primary_key=True)
     studentID = db.Column(db.Integer, db.ForeignKey('student.id'))
-    competitionID = db.Column(db.Integer, db.ForeignKey('competition.id'))
+    competitionID = db.Column(db.Integer, db.ForeignKey('competition.competitionID'))
     name = db.Column(db.String(120), nullable=False)
     rank = db.Column(db.Integer, nullable=False)
     university = db.Column(db.String(300), nullable=False)
