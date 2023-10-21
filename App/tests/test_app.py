@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User, Admin
+from App.models import User, Admin, Auth
 from App.controllers import * #TDOD: change to only import reqiuired functions
 
 
@@ -49,22 +49,25 @@ def empty_db():
     db.drop_all()
 
 
-def test_authenticate():
-    user = create_user("bob", "bobpass")
-    assert login("bob", "bobpass") != None
+def test_jwt_authenticate():
+    user = create_admin("maraval", "maravalpass")
+    token = jwt_authenticate("maraval", "maravalpass")
+    self.assertIsNotNone(token, "")
+
+def test_create_admin():
+    sando = create_admin("sando", "sandopass")
+    user = get_admin(sando.id)
+    assert user.username == sando.username
 
 class UsersIntegrationTests(unittest.TestCase):
 
-    def test_create_user(self):
-        user = create_user("rick", "bobpass")
-        assert user.username == "rick"
-
     def test_get_all_users_json(self):
         users_json = get_all_users_json()
-        self.assertListEqual([{"id":1, "username":"bob"}, {"id":2, "username":"rick"}], users_json)
+        self.assertListEqual([{"id":1, "username":"maraval"}, {"id":2, "username":"sando"}], users_json)
 
-    # Tests data changes in the database
-    def test_update_user(self):
-        update_user(1, "ronnie")
-        user = get_user(1)
-        assert user.username == "ronnie"
+    def test_update_admin(self):
+        update_admin(1, "freeport")
+        user = get_admin(1)
+        assert user.username == "freeport"
+
+    #TODO: test_admin_add_comp(), test_admin_add_result()
