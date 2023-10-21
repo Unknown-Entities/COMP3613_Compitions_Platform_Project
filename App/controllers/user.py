@@ -74,5 +74,23 @@ def get_admin(id):
 def get_student(id):
     return Student.query.get(id)
 
+def update_admin(id, username):
+    user = get_admin(id)
+
+    if user:
+        user.username = username
+        db.session.add(user)
+        return db.session.commit()
+    return None
+
+def update_student(id, username):
+    user = get_student(id)
+
+    if user:
+        user.username = username
+        db.session.add(user)
+        return db.session.commit()
+    return None
+
 #TODO: write helper function
 
