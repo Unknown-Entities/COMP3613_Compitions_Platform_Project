@@ -68,10 +68,10 @@ def fetchProfile(profileId):
 
     return f'{profileId} profile not found'
 
-def get_admin(id)
+def get_admin(id):
     return Admin.query.get(id)
 
-def get_student(id)
+def get_student(id):
     return Student.query.get(id)
 
 #TODO: write helper function
