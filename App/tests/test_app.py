@@ -3,15 +3,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User
-from App.controllers import (
-    create_user,
-    get_all_users_json,
-    login,
-    get_user,
-    get_user_by_username,
-    update_user
-)
+from App.models import User, Admin
+from App.controllers import * #TDOD: change to only import reqiuired functions
 
 
 LOGGER = logging.getLogger(__name__)
@@ -21,25 +14,25 @@ LOGGER = logging.getLogger(__name__)
 '''
 class UserUnitTests(unittest.TestCase):
 
-    def test_new_user(self):
-        user = User("bob", "bobpass")
-        assert user.username == "bob"
+    def test_create_user(self):
+        testUser = Admin("maraval", "maravalpass")
+        assert testUser.username == "maraval"
 
-    # pure function no side effects or integrations called
+    #maybe change to test admin/student.toJSON()
     def test_get_json(self):
-        user = User("bob", "bobpass")
-        user_json = user.get_json()
-        self.assertDictEqual(user_json, {"id":None, "username":"bob"})
+        user = Admin("maraval", "maravalpass")
+        user_json = user.toJSON()
+        self.assertDictEqual(user_json, {"id": None, "username":"maraval", "user_type":"admin"})
     
     def test_hashed_password(self):
-        password = "mypass"
-        hashed = generate_password_hash(password, method='sha256')
-        user = User("bob", password)
-        assert user.password != password
+        password = "testpass"
+        hashed = generate_password_hash(password, method='sha256') #maybe not needed? I think it should auto hash;will leave it for now
+        user = User("maraval", hashed)
+        assert user.password != hashed
 
     def test_check_password(self):
-        password = "mypass"
-        user = User("bob", password)
+        password = "testpass"
+        user = User("maraval", password)
         assert user.check_password(password)
 
 '''
