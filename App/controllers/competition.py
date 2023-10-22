@@ -16,7 +16,10 @@ def add_result(compId, winnerId):
         #should add winner.id to the specificied competition
     return False #unable to add winner
 
-def viewCompetitions():
+def view_competitions():
     return Competition.query.all() #can be then manipulated and displayed
+
+def get_comp(id)
+    return Competition.query.get(id)
 
 #TODO: add helper functions
