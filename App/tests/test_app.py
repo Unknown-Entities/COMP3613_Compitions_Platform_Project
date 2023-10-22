@@ -70,4 +70,14 @@ class UsersIntegrationTests(unittest.TestCase):
         user = get_admin(1)
         assert user.username == "freeport"
 
-    #TODO: test_admin_add_comp(), test_admin_add_result()
+    def test_admin_add_comp(self):
+        user = create_admin("maraval", "maravalpass")
+        comp = user.add_comp("walktime", "2 dabloons", "NA", 21)
+        self.assertIsNotNone(comp, "")
+
+    #Currently broken
+    # def test_admin_add_result(self):
+    #     create_student("compwinner", "testpass")
+    #     add_result(1, 1)
+    #     comp = get_comp(1)
+    #     assert comp.winnerId == "1"
