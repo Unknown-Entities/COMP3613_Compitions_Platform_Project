@@ -19,7 +19,7 @@ def add_result(compId, winnerId):
 def view_competitions():
     return Competition.query.all() #can be then manipulated and displayed
 
-def get_comp(id)
+def get_comp(id):
     return Competition.query.get(id)
 
 #TODO: add helper functions
