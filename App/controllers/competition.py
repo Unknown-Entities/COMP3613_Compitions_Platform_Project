@@ -1,17 +1,19 @@
-#from App.models import Competition, Admin, Student
+from App.models import competition, admin, student
 from App.database import db
 
-def createComp(competitionName, prize, region, maxEntrants: int):
-    return admin.createComp(competitionName=competitionName, prize=prize, region=region, maxEntrants=maxEntrants)
-    #should create a new competition object from the provided info then add it to the db and return it
+def create_comp(competitionName, prize, region, maxEntrants: int):
+    newcomp = Competition(competitionName, prize, region, maxEntrants)
+    db.session.add(newcomp)
+    db.session.commit()
+    return newcomp
 
-def addResult(compId, winnerId):
+def add_result(compId, winnerId):
     competition = Competition.query.get(compId)
     winner = Student.query.get(winnerId)
 
     if competition and winner:
         return admin.addResult(competition.id, winner.id)
-        #should winner.id to the specificied competition
+        #should add winner.id to the specificied competition
     return False #unable to add winner
 
 def viewCompetitions():
