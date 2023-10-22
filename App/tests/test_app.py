@@ -75,6 +75,9 @@ class UsersIntegrationTests(unittest.TestCase):
         comp = user.add_comp("walktime", "2 dabloons", "NA", 21)
         self.assertIsNotNone(comp, "")
 
-    def test_admin_add_result(self)
-
-    #TODO: test_admin_add_comp(), test_admin_add_result()
+    #Currently broken
+    # def test_admin_add_result(self):
+    #     create_student("compwinner", "testpass")
+    #     add_result(1, 1)
+    #     comp = get_comp(1)
+    #     assert comp.winnerId == "1"
