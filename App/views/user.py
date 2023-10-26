@@ -22,7 +22,7 @@ def create_staff_action():
     data = request.json
     result = create_student(username=data['username'], password=data['password'])
     if result:
-        return jsonify({"message": f"Staff created with id {result.id}"}), 201
+        return jsonify({"message": "account successively created"}), 201
     return jsonify({"error": f"Username {data['username']} already exists "}), 500
 
 # @user_views.route('/users', methods=['GET'])
