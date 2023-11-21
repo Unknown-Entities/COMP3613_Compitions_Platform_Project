@@ -4,3 +4,4 @@ from .ranking import *
 from .profile import *
 from .admin import *
 from .student import *
+from .notification import *
