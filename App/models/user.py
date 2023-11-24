@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
         return{
             'id': self.id,
             'username': self.username,
-            "email": self.email
+            'email': self.email
         }
 
     def set_password(self, password):
